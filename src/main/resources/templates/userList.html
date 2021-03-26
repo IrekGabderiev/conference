@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+</head>
+<body>
+    <h1>Список пользователей</h1>
+    <table border="1">
+        <tr>
+            <th>Имя пользователя</th>
+            <th>Роль</th>
+        </tr>
+        <tr th:each="user :${userList}">
+            <td th:utext="${user.login}" style="text-align: center"></td>
+            <td th:utext="${user.role.name()}" style="text-align: center"></td>
+            <td><button th:onclick="editUser(${user.id})">Изменить роль</button></td>
+            <td><button th:onclick="deleteUser(${user.id})">Удалить</button></td>
+        </tr>
+    </table>
+
+    <script>
+        function deleteUser(userId) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("DELETE", "http://localhost:8080/users/delete/" + userId, true);
+            xhttp.send();
+        }
+    </script>
+
+    <script>
+        function editUser(userId) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("DELETE", "http://localhost:8080/users/edit/" + userId, true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>

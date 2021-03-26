@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="#" name="myForm">
+        <label for="rooms">Выберите аудиторию:</label>
+        <select name="rooms" id="rooms" th:field="*{roomList}">
+            <option th:each="room:${roomList}" th:value="room" th:utext="${room.room_number}"></option>
+        </select>
+    </form>
+
+        <button onclick="searchByRoom()">Показать</button>
+    <br>
+        <script>
+            function searchByRoom() {
+            var room = myForm.rooms.selectedIndex+1;
+                console.log("Зашли " + room);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("Зашли");
+            var schedules = JSON.parse(this.responseText);
+            var html = '<tr>\n' +
+            '        <th>Комната</th>\n' +
+            '        <th>Дата</th>\n' +
+            '        <th>Время начала</th>\n' +
+            '        <th>Презентация</th>\n' +
+            '        <th>Презентатор</th>\n' +
+            '    </tr>';
+                for (var i = 0; i < schedules.length; i++) {
+                    var schedule = schedules[i];
+                    console.log(schedule);
+                    html = html + '<tr><td>' + schedule.room.room_number + '</td>\n' +
+                        '        <td>' + schedule.date + '</td>\n' +
+                        '        <td>' + schedule.start_time + '</td>\n' +
+                        '        <td>' + schedule.presentation.presentation_name + '</td>' +
+                        '        <td>' + schedule.presentation.author.login + '</td>';
+
+                }
+                if(schedules.length !== 0){
+                    document.getElementById("scheduleList").innerHTML = html;}
+                else
+                    document.getElementById("scheduleList").innerHTML = '<div>Нет презентаций</div>';
+        }
+        };
+            xhttp.open("GET", "http://localhost:8080/schedule/"+room);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send();
+        };
+    </script>
+
+    <table id="scheduleList" border="2">
+
+    </table>
+
+    <br>
+    <a th:href="@{/users}" sec:authorize="hasAuthority('ADMIN')">Список пользователей</a>
+    <br>
+    <a th:href="@{/presentations}" sec:authorize="hasAuthority('PRESENTER')">Мои презентации</a>
+</body>
+</html>

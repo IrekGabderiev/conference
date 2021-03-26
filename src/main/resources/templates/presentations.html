@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Презентации</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Презентация</th>
+        <th>Дата</th>
+        <th>Время начала</th>
+        <th>Аудитория</th>
+    </tr>
+    <tr th:each="schedule :${list}">
+        <td th:utext="${schedule.presentation.presentation_name}" style="text-align: center"></td>
+        <td th:utext="${schedule.date}" style="text-align: center"></td>
+        <td th:utext="${schedule.start_time}" style="text-align: center"></td>
+        <td th:utext="${schedule.room.room_number}" style="text-align: center"></td>
+    </tr>
+</table>
+    <br>
+    <br>
+<form th:action="@{/presentations}" method="post">
+    <div><label> Имя презентации: <input type="text" name="name"/> </label></div>
+    <div><label> Дата проведения: <input type="date" name="date"/> </label></div>
+    <div><label> Время начала   : <input type="time" name="time"/> </label></div>
+    <label for="room"> Аудитория      :</label>
+    <select id="room">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+    <div><input type="submit" value="Добавить новую презентацию"/></div>
+</form>
+</body>
+</html>

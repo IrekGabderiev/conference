@@ -1,0 +1,17 @@
+HELP.md
+conference.iml
+mvnw
+mvnw.cmd
+target/
+
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+
+
+### IntelliJ IDEA ###
+.idea
+.mvn
+
+
+
