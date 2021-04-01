@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ScheduleService {
@@ -26,7 +27,7 @@ public class ScheduleService {
         return scheduleRepository.findAllByRoom(room);
     }
 
-    public List<Schedule> findByPresentation(Presentation presentation){
+    public Optional<Schedule> findByPresentation(Presentation presentation){
         return scheduleRepository.findAllByPresentation(presentation);
     }
 }

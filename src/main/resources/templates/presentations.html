@@ -5,34 +5,38 @@
     <title>Презентации</title>
 </head>
 <body>
+<div th:if="${message != null}" th:utext="${message}"></div>
 <table border="1">
     <tr>
         <th>Презентация</th>
         <th>Дата</th>
         <th>Время начала</th>
         <th>Аудитория</th>
+        <th>Функции</th>
     </tr>
     <tr th:each="schedule :${list}">
         <td th:utext="${schedule.presentation.presentation_name}" style="text-align: center"></td>
         <td th:utext="${schedule.date}" style="text-align: center"></td>
         <td th:utext="${schedule.start_time}" style="text-align: center"></td>
         <td th:utext="${schedule.room.room_number}" style="text-align: center"></td>
+        <td><a th:href="@{/presentations/delete/{id} (id=${schedule.presentation.id})}">Удалить</a></td>
     </tr>
 </table>
     <br>
     <br>
-<form th:action="@{/presentations}" method="post">
+<form th:action="@{/presentations/new}" method="post">
     <div><label> Имя презентации: <input type="text" name="name"/> </label></div>
     <div><label> Дата проведения: <input type="date" name="date"/> </label></div>
     <div><label> Время начала   : <input type="time" name="time"/> </label></div>
     <label for="room"> Аудитория      :</label>
-    <select id="room">
+    <select id="room" name="room">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
-        <option value="4">4</option>
     </select>
     <div><input type="submit" value="Добавить новую презентацию"/></div>
 </form>
+<br>
+<a href="/">Назад</a>
 </body>
 </html>

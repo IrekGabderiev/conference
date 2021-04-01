@@ -13,7 +13,7 @@ public class Room {
     @Column
     private Integer room_number;
     @JsonIgnore
-    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Schedule> scheduleList;
 
     public Room() {

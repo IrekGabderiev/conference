@@ -31,8 +31,8 @@ create table user (
 alter table user
     add constraint UK_ew1hvam8uwaknuaellwhqchhb unique (login);
 alter table presentation
-    add constraint FKhtiiw7dke6siwrw2gr4uypf2i foreign key (presenter_id) references user (id);
+    add constraint FKhtiiw7dke6siwrw2gr4uypf2i foreign key (presenter_id) references user (id) on delete cascade;
 alter table schedule
-    add constraint FK8g12spt0h7ux2vwmckw8u58dl foreign key (presentation_id) references presentation (id);
+    add constraint FK8g12spt0h7ux2vwmckw8u58dl foreign key (presentation_id) references presentation (id) on delete cascade;
 alter table schedule
     add constraint FKh2hdhbss2x31ns719hka6enma foreign key (room_id) references room (id);

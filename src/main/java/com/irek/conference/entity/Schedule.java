@@ -19,7 +19,7 @@ public class Schedule {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
     private Room room;
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "presentation_id")
     private Presentation presentation;
 
@@ -32,6 +32,14 @@ public class Schedule {
         this.room = room;
         this.presentation = presentation;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public Room getRoom() {
         return room;
